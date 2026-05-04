@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Của Tôi</title>
+    <!-- Nhúng thư viện vẽ biểu đồ -->
+    <script src="https://jsdelivr.net"></script>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f9; margin: 20px; }
+        .container { max-width: 800px; margin: auto; background: white; padding: 20px; border-radius: 10px; shadow: 0 0 10px rgba(0,0,0,0.1); }
+        h2 { text-align: center; color: #333; }
+        .stats { display: flex; justify-content: space-around; margin-bottom: 20px; }
+        .card { background: #007bff; color: white; padding: 15px; border-radius: 8px; width: 30%; text-align: center; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>BÁO CÁO CÔNG VIỆC</h2>
+    
+    <!-- Các ô số liệu tổng quát -->
+    <div class="stats">
+        <div class="card"><h3>120</h3><p>Dự án</p></div>
+        <div class="card" style="background:#28a745;"><h3>85%</h3><p>Hoàn thành</p></div>
+        <div class="card" style="background:#dc3545;"><h3>15</h3><p>Đang chờ</p></div>
+    </div>
+
+    <!-- Khu vực hiển thị biểu đồ -->
+    <canvas id="myChart"></canvas>
+</div>
+
+<script>
+    // Cấu hình biểu đồ
+    const ctx = document.getElementById('myChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'bar', // Loại biểu đồ cột (có thể đổi thành 'line' hoặc 'pie')
+        data: {
+            labels: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5'],
+            datasets: [{
+                label: 'Số lượng nhiệm vụ',
+                data: [12, 19, 3, 5, 20],
+                backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            }]
+        }
+    });
+</script>
+
+</body>
+</html>
