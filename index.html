@@ -2,48 +2,61 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Của Tôi</title>
-    <!-- Nhúng thư viện vẽ biểu đồ -->
+    <title>Hạt Kiểm lâm Khu vực I - Đồng Tháp</title>
     <script src="https://jsdelivr.net"></script>
     <style>
-        body { font-family: Arial, sans-serif; background-color: #f4f4f9; margin: 20px; }
-        .container { max-width: 800px; margin: auto; background: white; padding: 20px; border-radius: 10px; shadow: 0 0 10px rgba(0,0,0,0.1); }
-        h2 { text-align: center; color: #333; }
-        .stats { display: flex; justify-content: space-around; margin-bottom: 20px; }
-        .card { background: #007bff; color: white; padding: 15px; border-radius: 8px; width: 30%; text-align: center; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #eceff1; margin: 0; padding: 20px; }
+        .header { background: #1b5e20; color: white; padding: 20px; text-align: center; border-radius: 8px; margin-bottom: 20px; }
+        .grid { display: grid; grid-template-columns: 1fr 2fr; gap: 20px; }
+        .sidebar { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .main-content { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        select { width: 100%; padding: 10px; margin-top: 10px; border-radius: 5px; border: 1px solid #ccc; }
+        .stat-box { background: #e8f5e9; padding: 15px; border-left: 5px solid #2e7d32; margin-bottom: 10px; }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h2>BÁO CÁO CÔNG VIỆC</h2>
-    
-    <!-- Các ô số liệu tổng quát -->
-    <div class="stats">
-        <div class="card"><h3>120</h3><p>Dự án</p></div>
-        <div class="card" style="background:#28a745;"><h3>85%</h3><p>Hoàn thành</p></div>
-        <div class="card" style="background:#dc3545;"><h3>15</h3><p>Đang chờ</p></div>
+<div class="header">
+    <h1>HẠT KIỂM LÂM KHU VỰC I</h1>
+    <p>Chi cục Kiểm lâm tỉnh Đồng Tháp</p>
+</div>
+
+<div class="grid">
+    <!-- Cột bên trái: Chọn địa bàn -->
+    <div class="sidebar">
+        <h3>Chọn địa bàn quản lý</h3>
+        <select id="selectDiaBan">
+            <option>-- Chọn Xã/Phường --</option>
+            <option>Xã Tân Hồng</option><option>Xã Tân Thành</option><option>Xã Tân Hộ Cơ</option>
+            <option>Xã An Phước</option><option>Xã Thường Phước</option><option>Xã Long Khánh</option>
+            <option>Xã Tràm Chim</option><option>Phường Cao Lãnh</option><option>Xã Phong Mỹ</option>
+            <!-- Bạn có thể thêm đủ 35 địa danh vào đây -->
+        </select>
+
+        <div style="margin-top: 20px;">
+            <div class="stat-box"><strong>Khai thác:</strong> <span id="valKhaiThac">0</span> m³</div>
+            <div class="stat-box"><strong>Trồng rừng:</strong> <span id="valTrongRung">0</span> ha</div>
+            <div class="stat-box" style="border-left-color: #d32f2f;"><strong>Vi phạm:</strong> <span id="valViPham">0</span> vụ</div>
+        </div>
     </div>
 
-    <!-- Khu vực hiển thị biểu đồ -->
-    <canvas id="myChart"></canvas>
+    <!-- Cột bên phải: Biểu đồ tổng hợp -->
+    <div class="main-content">
+        <h3>Biểu đồ diễn biến lâm nghiệp (Khu vực I)</h3>
+        <canvas id="forestChart"></canvas>
+    </div>
 </div>
 
 <script>
-    // Cấu hình biểu đồ
-    const ctx = document.getElementById('myChart').getContext('2d');
+    const ctx = document.getElementById('forestChart').getContext('2d');
     new Chart(ctx, {
-        type: 'bar', // Loại biểu đồ cột (có thể đổi thành 'line' hoặc 'pie')
+        type: 'line',
         data: {
             labels: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5'],
-            datasets: [{
-                label: 'Số lượng nhiệm vụ',
-                data: [12, 19, 3, 5, 20],
-                backgroundColor: 'rgba(54, 162, 235, 0.6)',
-                borderColor: 'rgba(54, 162, 235, 1)',
-                borderWidth: 1
-            }]
+            datasets: [
+                { label: 'Cháy rừng', data: [0, 1, 0, 2, 0], borderColor: 'red', fill: false },
+                { label: 'Trồng rừng tái sinh', data: [5, 12, 8, 15, 20], borderColor: 'green', fill: false }
+            ]
         }
     });
 </script>
